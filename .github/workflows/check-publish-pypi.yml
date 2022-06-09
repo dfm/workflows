@@ -20,7 +20,7 @@ jobs:
     name: Check source distribution
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v3
         with:
           name: ${{inputs.artifact-name}}
           path: dist
@@ -38,7 +38,7 @@ jobs:
     name: Publish source distribution
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v3
         with:
           name: ${{inputs.artifact-name}}
           path: dist
