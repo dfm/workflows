@@ -67,7 +67,7 @@ jobs:
     if: ${{!inputs.wheels}}
     needs: sdist
     name: Publish source distribution
-    uses: dfm/workflows/.github/workflows/check-publish-pypi.yml@main
+    uses: dfm/workflows/.github/workflows/python-publish.yml@main
     secrets:
       pypi-token: ${{secrets.pypi-token}}
 
@@ -75,6 +75,6 @@ jobs:
     if: ${{inputs.wheels}}
     needs: [sdist, wheels]
     name: Publish source and wheels
-    uses: dfm/workflows/.github/workflows/check-publish-pypi.yml@main
+    uses: dfm/workflows/.github/workflows/python-publish.yml@main
     secrets:
       pypi-token: ${{secrets.pypi-token}}

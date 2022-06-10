@@ -1,0 +1,21 @@
+name: Test using nox
+
+on:
+  workflow_call:
+    inputs:
+      session:
+        description: "The session name"
+        required: true
+        type: string
+      python-version:
+        description: "The version of Python to use"
+        required: false
+        type: string
+        default: "3.10"
+      os:
+        description: "The platform to run on"
+        required: false
+        type: string
+        default: ubuntu-latest
+
+
