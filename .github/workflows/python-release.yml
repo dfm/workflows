@@ -37,6 +37,7 @@ jobs:
           python -m build --sdist .
       - uses: actions/upload-artifact@v3
         with:
+          name: python-release-dist
           path: dist/*.tar.gz
 
   wheels:
@@ -61,6 +62,7 @@ jobs:
       - name: Upload wheels as artifact
         uses: actions/upload-artifact@v2
         with:
+          name: python-release-dist
           path: ./wheelhouse/*.whl
 
   check_publish_sdist:
@@ -68,13 +70,17 @@ jobs:
     needs: sdist
     name: Publish source distribution
     uses: dfm/workflows/.github/workflows/python-publish.yml@main
-    secrets:
-      pypi-token: ${{secrets.pypi-token}}
+      with:
+        artifact-name: python-release-dist
+      secrets:
+        pypi-token: ${{secrets.pypi-token}}
 
   check_publish_full_dist:
     if: ${{inputs.wheels}}
     needs: [sdist, wheels]
     name: Publish source and wheels
     uses: dfm/workflows/.github/workflows/python-publish.yml@main
-    secrets:
-      pypi-token: ${{secrets.pypi-token}}
+      with:
+        artifact-name: python-release-dist
+      secrets:
+        pypi-token: ${{secrets.pypi-token}}
