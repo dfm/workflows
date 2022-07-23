@@ -17,5 +17,27 @@ on:
         required: false
         type: string
         default: ubuntu-latest
+      checkout:
+        description: "Automatically checkout the project"
+        required: false
+        type: boolean
+        default: true
 
-
+jobs:
+  tests:
+    runs-on: ${{ inputs.os }}
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@v2
+        if: ${{ inputs.checkout }}
+        with:
+          submodules: true
+          fetch-depth: 0
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ inputs.python-version }}
+      - name: Install nox
+        run: python -m pip install -U nox
+      - name: Run tests
+        run: python -m nox --non-interactive -s ${{ inputs.nox-session }}
